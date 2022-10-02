@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="3dp"
+    app:cardUseCompatPadding="true"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/teal_200"
+        android:padding="10dp"
+        >
+
+
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:text="A.S.M.Thasneem" />
+
+        <Button
+            android:id="@+id/buttonGetDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Get Details"
+            android:layout_below="@id/userName"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textSize="23sp"
+            android:backgroundTint="@color/purple_200"
+            android:textColor="#C51162"
+            />
+
+
+        <Button
+            android:id="@+id/buttonLoadPosts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Load Posts"
+            android:layout_below="@id/buttonGetDetails"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textSize="23sp"
+            android:backgroundTint="@android:color/holo_blue_bright"
+            android:textColor="@color/purple_500"
+            />
+
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

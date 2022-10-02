@@ -1,6 +1,8 @@
 package com.assignment.part_A;
 
-public class User
+import java.io.Serializable;
+
+public class User implements Serializable
 {
     private int user_Id;
     private String name;

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity
 {
     private UserList userList;
+    private PostList postList;
     private RecyclerView usersRecyclerView;
 
 
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity
 
         user1.setUser_Id(1);
         user1.setName("Thasneem1");
+        user1.setUserName("Th1");
         user1.setAddress("dsfgdg");
         user1.setCompanyDetails("Company dssdfgf");
         user1.setWebsite("Website dfghfthtfh");
@@ -39,6 +42,7 @@ public class MainActivity extends AppCompatActivity
 
         user2.setUser_Id(2);
         user2.setName("Thasneem2");
+        user2.setUserName("Th2");
         user2.setAddress("dsfgdg");
         user2.setCompanyDetails("Company dssdfgf");
         user2.setWebsite("Website dfghfthtfh");
@@ -49,6 +53,7 @@ public class MainActivity extends AppCompatActivity
 
         user3.setUser_Id(3);
         user3.setName("Thasneem3");
+        user3.setUserName("Th3");
         user3.setAddress("dsfgdg");
         user3.setCompanyDetails("Company dssdfgf");
         user3.setWebsite("Website dfghfthtfh");
@@ -60,6 +65,7 @@ public class MainActivity extends AppCompatActivity
 
         user4.setUser_Id(4);
         user4.setName("Thasneem4");
+        user4.setUserName("Th4");
         user4.setAddress("dsfgdg");
         user4.setCompanyDetails("Company dssdfgf");
         user4.setWebsite("Website dfghfthtfh");
@@ -71,6 +77,7 @@ public class MainActivity extends AppCompatActivity
 
         user5.setUser_Id(5);
         user5.setName("Thasneem5");
+        user5.setUserName("Th5");
         user5.setAddress("dsfgdg");
         user5.setCompanyDetails("Company dssdfgf");
         user5.setWebsite("Website dfghfthtfh");
@@ -83,6 +90,31 @@ public class MainActivity extends AppCompatActivity
         userList.addUser(user3);
         userList.addUser(user4);
         userList.addUser(user5);
+
+        postList = PostList.getInstance();
+
+        Post post1 = new Post(1,"dfgdfgdf","gdfgdfgdfg");
+        Post post2 = new Post(1,"dfgdfgdf","gdfgdfgdfg");
+        Post post3 = new Post(1,"dfgdfgdf","gdfgdfgdfg");
+        Post post4 = new Post(1,"dfgdfgdf","gdfgdfgdfg");
+        Post post5 = new Post(1,"dfgdfgdf","gdfgdfgdfg");
+        Post post6 = new Post(2,"dfgdfgdf","gdfgdfgdfg");
+        Post post7 = new Post(2,"dfgdfgdf","gdfgdfgdfg");
+        Post post8 = new Post(3,"dfgdfgdf","gdfgdfgdfg");
+        Post post9 = new Post(3,"dfgdfgdf","gdfgdfgdfg");
+        Post post10 = new Post(4,"dfgdfgdf","gdfgdfgdfg");
+
+        postList.addPost(post1);
+        postList.addPost(post2);
+        postList.addPost(post3);
+        postList.addPost(post4);
+        postList.addPost(post5);
+        postList.addPost(post6);
+        postList.addPost(post7);
+        postList.addPost(post8);
+        postList.addPost(post9);
+        postList.addPost(post10);
+
 
     }
 
@@ -188,6 +220,28 @@ public class MainActivity extends AppCompatActivity
 
             // Set the TextView
             userName.setText(singleUser.getName());
+
+            buttonGetDetails.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View view)
+                {
+                    Intent intent = GetDetailActivity.getIntent(MainActivity.this,singleUser);
+                    startActivity(intent);
+                }
+            });
+
+
+            buttonLoadPosts.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View view)
+                {
+                    Intent intent = PostRecyclerViewActivity.getIntent(MainActivity.this,singleUser);
+                    startActivity(intent);
+
+                }
+            });
 
         }
 

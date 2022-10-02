@@ -5,43 +5,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
-    tools:context=".MainActivity">
+    tools:context=".PostRecyclerViewActivity">
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyle"
+    <TextView
+        android:id="@+id/textTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone"
-        />
-
-    <Button
-        android:id="@+id/buttonLoad"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Load Information"
+        android:text="Posts Made by the User"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:textStyle="bold"
         android:textSize="23sp"
+        android:textColor="#FFAB00"
+        android:textAlignment="center"
         android:layout_marginBottom="20dp"
         />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/usersRecyclerView"
+        android:id="@+id/postRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="9dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textTitle" />
 
-
-        app:layout_constraintTop_toBottomOf="@id/buttonLoad" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-

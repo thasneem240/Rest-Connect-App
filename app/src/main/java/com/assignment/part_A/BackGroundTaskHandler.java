@@ -39,6 +39,7 @@ public class BackGroundTaskHandler implements Runnable
 
         if(successMessage1 != null)
         {
+            showToast("Load_User List Successfully Completed ");
 
             PostRetrievalTask postRetrievalTask = new PostRetrievalTask(uiActivity);
 
@@ -49,6 +50,8 @@ public class BackGroundTaskHandler implements Runnable
 
             if(successMessage2 != null)
             {
+                showToast("Load_Post List Successfully Completed ");
+
                 uiActivity.runOnUiThread(new Runnable()
                 {
                     @Override
@@ -107,7 +110,6 @@ public class BackGroundTaskHandler implements Runnable
             }
         });
 
-        showToast("Load_Post List Successfully Completed ");
 
         return  loadPostsResponseData;
 
@@ -159,7 +161,6 @@ public class BackGroundTaskHandler implements Runnable
             }
         });
 
-        showToast("Load_User List Successfully Completed ");
 
         return  loadUsersResponseData;
     }

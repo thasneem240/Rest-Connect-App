@@ -45,7 +45,7 @@ public class UserRetrievalTask implements Callable<String>
 
                 for( int i = 0; i < jsonArray.length(); i++)
                 {
-                    JSONObject jsonObject = jsonArray.getJSONObject(0);
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                     int id = jsonObject.getInt("id");
                     String name = jsonObject.getString("name");

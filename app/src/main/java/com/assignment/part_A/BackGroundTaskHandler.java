@@ -2,6 +2,7 @@ package com.assignment.part_A;
 
 import android.app.Activity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -14,13 +15,16 @@ import java.util.concurrent.TimeoutException;
 
 public class BackGroundTaskHandler implements Runnable
 {
-    Activity uiActivity;
-    ProgressBar progressBar;
+    private Activity uiActivity;
+    private ProgressBar progressBar;
+    private Button enableRecyclerView;
 
-    public BackGroundTaskHandler(Activity uiActivity, ProgressBar progressBar)
+    public BackGroundTaskHandler(Activity uiActivity, ProgressBar progressBar, Button enableRecyclerView)
     {
         this.uiActivity = uiActivity;
         this.progressBar = progressBar;
+        this.enableRecyclerView = enableRecyclerView;
+
     }
 
     @Override
@@ -31,12 +35,89 @@ public class BackGroundTaskHandler implements Runnable
 
         Future<String> userObjectPlaceHolder =  executorService.submit(userRetrievalTask);
 
-        String loadedUserObject = waitingForUserObject(userObjectPlaceHolder);
+        String successMessage1 = waitingForUserLoad(userObjectPlaceHolder);
+
+        if(successMessage1 != null)
+        {
+
+            PostRetrievalTask postRetrievalTask = new PostRetrievalTask(uiActivity);
+
+            Future<String> postObjectPlaceHolder = executorService.submit(postRetrievalTask);
+
+            String successMessage2 = waitingForPostLoad(postObjectPlaceHolder);
+
+
+            if(successMessage2 != null)
+            {
+                uiActivity.runOnUiThread(new Runnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        enableRecyclerView.setVisibility(View.VISIBLE);
+                    }
+                });
+            }
+        }
 
     }
 
-    private String waitingForUserObject(Future<String> userObjectPlaceHolder)
+    private String waitingForPostLoad(Future<String> postObjectPlaceHolder)
     {
+        String loadPostsResponseData =null;
+
+        uiActivity.runOnUiThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                progressBar.setVisibility(View.VISIBLE);
+            }
+        });
+
+        showToast("Load Post List Starts");
+
+        try
+        {
+            loadPostsResponseData = postObjectPlaceHolder.get(10000, TimeUnit.MILLISECONDS);
+        }
+        catch (ExecutionException e)
+        {
+            e.printStackTrace();
+            showError(1, "Load_Posts");
+        }
+        catch (InterruptedException e)
+        {
+            e.printStackTrace();
+            showError(2, "Load_Posts");
+        }
+        catch (TimeoutException e)
+        {
+            e.printStackTrace();
+            showError(3, "Load_Posts");
+        }
+
+
+        uiActivity.runOnUiThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                progressBar.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        showToast("Load_Post List Successfully Completed ");
+
+        return  loadPostsResponseData;
+
+
+    }
+
+    private String waitingForUserLoad(Future<String> userObjectPlaceHolder)
+    {
+        String loadUsersResponseData =null;
+
         uiActivity.runOnUiThread(new Runnable()
         {
             @Override
@@ -47,11 +128,10 @@ public class BackGroundTaskHandler implements Runnable
         });
         showToast("Load User List Starts");
 
-       String loadUsersResponseData =null;
 
         try
         {
-            loadUsersResponseData = userObjectPlaceHolder.get(20000, TimeUnit.MILLISECONDS);
+            loadUsersResponseData = userObjectPlaceHolder.get(10000, TimeUnit.MILLISECONDS);
         }
         catch (ExecutionException e)
         {

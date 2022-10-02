@@ -40,4 +40,8 @@ public class UserList
         return  listOfUser.size();
     }
 
+    public User get(int position)
+    {
+        return listOfUser.get(position);
+    }
 }

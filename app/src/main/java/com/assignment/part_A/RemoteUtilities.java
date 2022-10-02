@@ -3,6 +3,8 @@ package com.assignment.part_A;
 import android.app.Activity;
 import android.widget.Toast;
 
+import org.apache.commons.io.IOUtils;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -82,21 +84,30 @@ public class RemoteUtilities
             {
                 return true;
             }
-        } catch (IOException e)
+        }
+        catch (IOException e)
         {
             e.printStackTrace();
-
-            uiActivity.runOnUiThread(new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                    Toast.makeText(uiActivity, "Problem with API Endpoint", Toast.LENGTH_LONG).show();
-                }
-            });
         }
 
         return false;
+    }
+
+    public String getResponseString(HttpURLConnection conn)
+    {
+        String data = null;
+        try
+        {
+            InputStream inputStream = conn.getInputStream();
+            byte[] byteData = IOUtils.toByteArray(inputStream);
+            data = new String(byteData, StandardCharsets.UTF_8);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        return data;
     }
 
 }

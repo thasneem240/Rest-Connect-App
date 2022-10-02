@@ -15,11 +15,15 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class MainActivity extends AppCompatActivity
 {
     private UserList userList;
     private PostList postList;
     private RecyclerView usersRecyclerView;
+    private ExecutorService executorService = Executors.newSingleThreadExecutor();
 
 
     public MainActivity()
@@ -141,7 +145,12 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view)
             {
                // progressBar.setVisibility(View.VISIBLE);
-                setUserRecyclerView();
+                //setUserRecyclerView();
+
+                BackGroundTaskHandler backGroundTaskHandler = new
+                        BackGroundTaskHandler(MainActivity.this, progressBar);
+
+                executorService.execute(backGroundTaskHandler);
             }
         });
 
@@ -163,8 +172,6 @@ public class MainActivity extends AppCompatActivity
 
             // Hook it up
             usersRecyclerView.setAdapter(adapter);
-
-
         }
     }
 
